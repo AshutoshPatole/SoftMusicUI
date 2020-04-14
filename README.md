@@ -1,7 +1,8 @@
-<<<<<<< HEAD
 # musicplayer
 
 A new Flutter application.
+
+![](/images/SoftMusicUI.jpg)
 
 ## Getting Started
 
@@ -18,6 +19,3 @@ samples, guidance on mobile development, and a full API reference.
 =======
 # SoftMusicUI
 Music app UI made with Flutter
-
-
->>>>>>> d04420c1699368f381e48aecffc37a2e836d6373

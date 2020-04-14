@@ -1,4 +1,4 @@
 # SoftMusicUI
-Music app made with Flutter
+Music app UI made with Flutter
 
 

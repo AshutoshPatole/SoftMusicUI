@@ -31,7 +31,9 @@ class PlayList extends StatelessWidget {
                 child: Text(
                   "Recommended",
                   style: GoogleFonts.ubuntu(
-                      fontWeight: FontWeight.w500, fontSize: 16),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Colors.white70),
                 ),
               ),
             ),

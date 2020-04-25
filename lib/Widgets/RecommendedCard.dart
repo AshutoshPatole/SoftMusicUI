@@ -45,7 +45,7 @@ class _RecommendedCardState extends State<RecommendedCard> {
               child: RoundedButton(
                 icon: widget.icon,
                 size: 15,
-                color: Colors.grey[600],
+                color: Colors.grey[400],
                 width: 50,
                 height: 50,
               ),

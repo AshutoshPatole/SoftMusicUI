@@ -16,14 +16,17 @@ class PlayListHeader extends StatelessWidget {
               Text(
                 "Playlists",
                 style: GoogleFonts.ubuntu(
-                    fontSize: 24, letterSpacing: 1, fontWeight: FontWeight.w400),
+                    fontSize: 24,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white70),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.015,
               ),
               Text(
                 "16 created playlists",
-                style: GoogleFonts.ubuntu(fontSize: 14, letterSpacing: 1),
+                style: GoogleFonts.ubuntu(fontSize: 14, color: Colors.white70),
               )
             ],
           ),

@@ -6,7 +6,12 @@ import 'package:musicplayer/Screens/FavouritePage.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
-class FavouriteCard extends StatelessWidget {
+class FavouriteCard extends StatefulWidget {
+  @override
+  _FavouriteCardState createState() => _FavouriteCardState();
+}
+
+class _FavouriteCardState extends State<FavouriteCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

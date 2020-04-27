@@ -14,7 +14,24 @@ class RoundedImage extends StatefulWidget {
   _RoundedImageState createState() => _RoundedImageState();
 }
 
-class _RoundedImageState extends State<RoundedImage> {
+class _RoundedImageState extends State<RoundedImage>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 10));
+    _controller.repeat();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,15 +58,18 @@ class _RoundedImageState extends State<RoundedImage> {
           shape: BoxShape.circle,
           color: Colors.grey[900],
         ),
-        child: Container(
-          margin: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey[850],
-              image: DecorationImage(
-                image: NetworkImage(widget.link),
-                fit: BoxFit.cover,
-              )),
+        child: RotationTransition(
+          turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
+          child: Container(
+            margin: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey[850],
+                image: DecorationImage(
+                  image: NetworkImage(widget.link),
+                  fit: BoxFit.cover,
+                )),
+          ),
         ),
       ),
     );

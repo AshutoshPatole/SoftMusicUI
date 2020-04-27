@@ -26,6 +26,11 @@ dependencies:
   google_fonts: ^0.3.10
   font_awesome_flutter: ^8.8.1
   wave: ^0.0.8
+  flutter_audio_query: ^0.3.4+2
+  auto_size_text: ^2.1.0
+  audioplayers: ^0.15.1
+  shared_preferences: ^0.5.7
+
 
 
 dev_dependencies:

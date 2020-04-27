@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/Custom_Buttons/rounded_button.dart';
 
-class PlayListHeader extends StatelessWidget {
+class PlayListHeader extends StatefulWidget {
+  @override
+  _PlayListHeaderState createState() => _PlayListHeaderState();
+}
+
+class _PlayListHeaderState extends State<PlayListHeader> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,7 +19,7 @@ class PlayListHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "Playlists",
+                "Songs",
                 style: GoogleFonts.ubuntu(
                     fontSize: 24,
                     letterSpacing: 1,
@@ -24,18 +29,16 @@ class PlayListHeader extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.015,
               ),
-              Text(
-                "16 created playlists",
-                style: GoogleFonts.ubuntu(fontSize: 14, color: Colors.white70),
-              )
             ],
           ),
-          RoundedButton(
-            icon: Icons.add,
-            height: 50,
-            width: 50,
-            color: Colors.grey[300],
-          )
+//          GestureDetector(
+//            child: RoundedButton(
+//              icon: Icons.add,
+//              height: 50,
+//              width: 50,
+//              color: Colors.grey[300],
+//            ),
+//          )
         ],
       ),
     );

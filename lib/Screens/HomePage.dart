@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/Custom_Buttons/activeButton.dart';
@@ -12,19 +15,19 @@ class HomePage extends StatefulWidget {
   final String songName;
   final String singerName;
   final String filePath;
-  final String songDuration;
+  final String songArtWork;
 
   const HomePage(
       {Key key,
       this.songName,
       this.singerName,
       this.filePath,
-      this.songDuration})
+      this.songArtWork})
       : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState(
-      this.songName, this.singerName, this.filePath, this.songDuration);
+      this.songName, this.singerName, this.filePath, this.songArtWork);
 }
 
 class _HomePageState extends State<HomePage> {
@@ -51,10 +54,7 @@ class _HomePageState extends State<HomePage> {
   playAudioFromLocalStorage(path) async {
     int response = await audioPlayer.play(path, isLocal: true);
     if (response == 1) {
-      setState(() {
-        isPlaying = !isPlaying;
-      });
-      print(isPlaying);
+      //Success
     } else {
       print('Some error occured in playing from storage!');
     }
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
     preferences.setString('currentSongName', songName);
     preferences.setString('currentSongSingerName', singerName);
     preferences.setString('currentSongFilePath', filePath);
-    preferences.setString('songLength', songArtWork);
+    preferences.setString('songArtWork', songArtWork);
   }
 
   Future getSongDetailsFromCache() async {
@@ -80,22 +80,6 @@ class _HomePageState extends State<HomePage> {
       });
     }
   }
-
-//  durationOfSong() {
-//    audioPlayer.onAudioPositionChanged.listen((Duration duration) {
-////      print("Song time $duration");
-//      setState(() {
-//        runningSongTime = duration;
-//      });
-//    });
-//    audioPlayer.onDurationChanged.listen((Duration songTime) {
-//      setState(() {
-//        songLength = songTime;
-//      });
-//    });
-//  }
-//
-//  formatDurationToString(Duration d) => d.toString().substring(2, 7);
 
   pauseAudio() async {
     int response = await audioPlayer.pause();
@@ -118,16 +102,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     audioPlayer = AudioPlayer(playerId: 'Song');
-    print(songArtWork);
-
-    audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) {
-      setState(() => songStatus = s);
-      if (songStatus == AudioPlayerState.PLAYING) {
-        isPlaying = false;
-      }
-    });
 
     super.initState();
+  }
+
+  void stateOfSong() {
+    audioPlayer.onPlayerStateChanged.listen((state) {
+      if (!mounted) return;
+      setState(() {
+        songStatus = state;
+      });
+    });
   }
 
   Future<bool> _backPressed() async {
@@ -176,18 +161,27 @@ class _HomePageState extends State<HomePage> {
                 ),
                 RoundedImage(
                   height: MediaQuery.of(context).size.height * 0.4,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  link:
-                      'https://i.pinimg.com/originals/59/9d/19/599d197ac23790d090f679659ae64b6a.jpg',
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  child: songArtWork == null
+                      ? Image.asset(
+                          'images/default_music.jpg',
+                          fit: BoxFit.cover,
+                        )
+                      : Image.file(
+                          File(songArtWork),
+                          fit: BoxFit.cover,
+                        ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.03,
-                ),
+//                SizedBox(
+//                  height: MediaQuery.of(context).size.height * 0.03,
+//                ),
+//
+
                 Spacer(),
                 Column(
                   children: <Widget>[
                     Text(
-                      songName.substring(0, 10) + "...",
+                      songName.substring(0, 15) + "...",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.ubuntu(
                           fontSize: 25, color: Colors.grey[500]),
@@ -214,11 +208,12 @@ class _HomePageState extends State<HomePage> {
                       size: 20,
                       color: Colors.grey[300],
                     ),
-                    isPlaying
+                    songStatus == AudioPlayerState.COMPLETED
                         ? GestureDetector(
                             onTap: () {
                               playAudioFromLocalStorage(filePath);
                               storeSongDetails();
+                              stateOfSong();
                             },
                             child: RoundedButton(
                               icon: Icons.play_arrow,

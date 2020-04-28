@@ -12,7 +12,7 @@ class ShortPlay extends StatefulWidget {
 }
 
 class _ShortPlayState extends State<ShortPlay> {
-  String _storedSongName, _storedSingerName, _storedFilePath;
+  String _storedSongName, _storedSingerName, _storedFilePath, _storedSongArtWork;
 
   String shortSongName, shortSingerName;
 
@@ -22,6 +22,7 @@ class _ShortPlayState extends State<ShortPlay> {
       _storedSongName = sharedPreferences.getString('currentSongName');
       _storedSingerName = sharedPreferences.getString('currentSongSingerName');
       _storedFilePath = sharedPreferences.getString('currentSongFilePath');
+      _storedSongArtWork = sharedPreferences.getString('songArtWork');
       if (_storedSongName.length > 10) {
         setState(() {
           _storedSongName = _storedSongName.substring(0, 20);
@@ -55,6 +56,7 @@ class _ShortPlayState extends State<ShortPlay> {
                       songName: _storedSongName,
                       singerName: _storedSingerName,
                       filePath: _storedFilePath,
+                      songArtWork: _storedSongArtWork,
                     ),
                   ),
                 ),
@@ -68,7 +70,7 @@ class _ShortPlayState extends State<ShortPlay> {
                           fontWeight: FontWeight.w500, color: Colors.grey[400]),
                     ),
                     AutoSizeText(
-                      _storedSingerName + "..." ?? "Loading..",
+                      _storedSingerName ?? "Loading..",
                       style: GoogleFonts.ubuntu(
                           fontWeight: FontWeight.w500,
                           color: Colors.grey[400],

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:musicplayer/Animations/Delayed_animation.dart';
 import 'package:musicplayer/Screens/HomePage.dart';
 import 'package:musicplayer/Widgets/CustomDivider.dart';
 
@@ -36,11 +37,6 @@ class _SongsListState extends State<SongsList> {
 //    });
   }
 
-
-
-
-
-
   @override
   void initState() {
     getSongsList();
@@ -51,18 +47,17 @@ class _SongsListState extends State<SongsList> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: songsInfo,
-      builder: (context, snapshot) {
-        return ListView.builder(
-          shrinkWrap: true,
-          itemExtent: 60,
-          scrollDirection: Axis.vertical,
-          itemCount: songs.length,
-          itemBuilder: (context, int index) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else {
+    return DelayedAnimation(
+      delay: 200,
+      child: FutureBuilder(
+        future: songsInfo,
+        builder: (context, snapshot) {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemExtent: 60,
+            scrollDirection: Axis.vertical,
+            itemCount: songs?.length ?? 0,
+            itemBuilder: (context, int index) {
               return GestureDetector(
                 onTap: () {
                   String songName = songs[index].title;
@@ -76,7 +71,7 @@ class _SongsListState extends State<SongsList> {
                         songName: songName,
                         singerName: singerName,
                         filePath: filePath,
-                        songDuration: songArtWork,
+                        songArtWork: songArtWork,
                       ),
                     ),
                   );
@@ -87,10 +82,13 @@ class _SongsListState extends State<SongsList> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: AutoSizeText(
-                          songs[index].title,
-                          maxFontSize: 16,
-                          maxLines: 2,
+                        child: DelayedAnimation(
+                          delay: 100,
+                          child: AutoSizeText(
+                            songs[index].title,
+                            maxFontSize: 16,
+                            maxLines: 2,
+                          ),
                         ),
                       ),
                     ),
@@ -126,10 +124,10 @@ class _SongsListState extends State<SongsList> {
                   ],
                 ),
               );
-            }
-          },
-        );
-      },
+            },
+          );
+        },
+      ),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/Custom_Buttons/rounded_button.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 class PlayListHeader extends StatefulWidget {
   @override
@@ -10,37 +12,56 @@ class PlayListHeader extends StatefulWidget {
 class _PlayListHeaderState extends State<PlayListHeader> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(25.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.125,
+      width: MediaQuery.of(context).size.width,
+      child: Stack(
         children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "Songs",
-                style: GoogleFonts.ubuntu(
-                    fontSize: 24,
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white70),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.015,
-              ),
-            ],
+          _buildCard(
+            context: context,
+            config: CustomConfig(
+              colors: [
+                Colors.grey[700],
+                Colors.grey[600],
+                Colors.grey[600],
+                Colors.grey[700],
+              ],
+              durations: [35000, 19440, 10800, 6000],
+              heightPercentages: [0.20, 0.23, 0.25, 0.30],
+              blur: MaskFilter.blur(BlurStyle.outer, 5.0),
+            ),
+            backgroundColor: Colors.grey[850],
           ),
-//          GestureDetector(
-//            child: RoundedButton(
-//              icon: Icons.add,
-//              height: 50,
-//              width: 50,
-//              color: Colors.grey[300],
-//            ),
-//          )
+          Positioned(
+            left: 40,
+            top: 30,
+            child: Text(
+              "Songs",
+              style: GoogleFonts.ubuntu(
+                  fontSize: 24,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white70),
+            ),
+          ),
         ],
       ),
     );
   }
+}
+
+_buildCard(
+    {Config config,
+    Color backgroundColor = Colors.transparent,
+    BuildContext context}) {
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.height * 0.07,
+    child: WaveWidget(
+      config: config,
+      backgroundColor: backgroundColor,
+      size: Size(double.infinity, double.infinity),
+      waveAmplitude: 0,
+    ),
+  );
 }

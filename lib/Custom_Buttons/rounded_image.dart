@@ -1,14 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class RoundedImage extends StatefulWidget {
-  final String link;
+  final Widget child;
   final double size;
   final Color color;
   final double height;
   final double width;
 
   RoundedImage(
-      {this.height, this.width, this.color, this.size, @required this.link});
+      {this.height, this.width, this.color, this.size, @required this.child});
 
   @override
   _RoundedImageState createState() => _RoundedImageState();
@@ -61,14 +63,11 @@ class _RoundedImageState extends State<RoundedImage>
         child: RotationTransition(
           turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
           child: Container(
-            margin: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey[850],
-                image: DecorationImage(
-                  image: NetworkImage(widget.link),
-                  fit: BoxFit.cover,
-                )),
+              shape: BoxShape.circle,
+              color: Colors.grey[850],
+            ),
+            child: ClipOval(child: widget.child),
           ),
         ),
       ),

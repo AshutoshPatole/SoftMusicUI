@@ -1,8 +1,24 @@
-# SoftMusicUI
-Music app UI made with Flutter
+# Music app 
+Music app made with Flutter
 
 
 ![](/images/SoftMusicUI.jpg)
+
+
+# dependencies used
+1. - [audioplayers](https://pub.dev/packages/audioplayers)
+2. - [flutter_audio_query](https://pub.dev/packages/flutter_audio_query)
+
+
+# ToDoList :
+1. create playlist
+2. navigate to next and previous song
+3. Favourites song List
+
+
+# 
+
+Pull requests are most welcomed.
 
 ## Getting Started
 

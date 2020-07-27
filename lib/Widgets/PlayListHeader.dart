@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:musicplayer/Custom_Buttons/rounded_button.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 

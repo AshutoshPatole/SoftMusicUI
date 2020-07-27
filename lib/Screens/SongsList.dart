@@ -21,7 +21,7 @@ class _SongsListState extends State<SongsList> {
 
   Future generateArtistList() async {
     List<ArtistInfo> temp =
-        await audioQuery.getArtists(); // returns all artists available
+        await audioQuery.getArtists();
 //    artists.forEach((artist) {
 //      print(artist);
 //    });
